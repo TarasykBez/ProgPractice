@@ -1,0 +1,32 @@
+#include <stdio.h>
+#include <math.h>
+
+// Функція для знаходження кількості точок перетину двох кіл
+int findIntersectionPoints(int x1, int y1, int r1, int x2, int y2, int r2) {
+    // Обчислення відстань між центрами кіл
+    double distance = sqrt(pow(x2 - x1, 2) + pow(y2 - y1, 2));
+    
+    // Перевірка умов перетину
+    if (distance > r1 + r2 || distance < fabs(r1 - r2))
+        return 0; // Кола не перетинаються
+    else if (distance == 0 && r1 == r2)
+        return -1; // Кола збігаються
+    else
+        return 2; // Кола перетинаються у двох або більше точках
+}
+
+int main() {
+    int x1, y1, r1, x2, y2, r2;
+    
+    printf("Введіть координати та радіус двох кіл (x1 y1 r1) (x2 y2 r2): ");
+    scanf("%d %d %d %d %d %d",  &x2, &y2, &r2, &x1, &y1, &r1);
+    
+    int intersectionPoints = findIntersectionPoints(x1, y1, r1, x2, y2, r2);
+    
+    if (intersectionPoints == -1)
+        printf("-1\n"); // Кола збігаються
+    else
+        printf("Кількість точок перетину: %d\n", intersectionPoints);
+    
+    return 0;
+}
