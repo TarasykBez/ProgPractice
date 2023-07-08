@@ -1,0 +1,44 @@
+#include <stdio.h>
+#include <string.h>
+
+// Функція для обчислення факторіалу числа
+int factorial(int n) {
+    int fact = 1;
+    for (int i = 1; i <= n; i++) {
+        fact *= i;
+    }
+    return fact;
+}
+
+// Функція для обчислення кількості анаграм для заданого слова
+int countAnagrams(char word[]) {
+    int length = strlen(word);
+    int letterCount[26] = {0};  // Масив для підрахунку кількості входжень кожної букви
+
+    // Підрахунок кількості входжень кожної букви в слово
+    for (int i = 0; i < length; i++) {
+        letterCount[word[i] - 'A']++;
+    }
+
+    int denominator = 1;
+    for (int i = 0; i < 26; i++) {
+        if (letterCount[i] > 1) {
+            denominator *= factorial(letterCount[i]);
+        }
+    }
+
+    // Обчислення кількості анаграм за допомогою формули
+    int anagramCount = factorial(length) / denominator;
+    return anagramCount;
+}
+
+int main() {
+    char word[15];
+    printf("Введіть слово(Великими літеарми!): ");
+    scanf("%s", word);
+
+    int anagramCount = countAnagrams(word);
+    printf("Кількість анаграм: %d\n", anagramCount);
+
+    return 0;
+}
